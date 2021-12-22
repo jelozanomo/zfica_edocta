@@ -1,0 +1,62 @@
+<mvc:View controllerName="ean.edu.co.edo.cta.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<Table id="lineItemsList" width="auto" items="{ListToItems}" updateFinished="onListUpdateFinished"
+				noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<Title id="lineItemsHeader"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="18em" minScreenWidth="Tablet" demandPopin="true" hAlign="Begin">
+						<Text text="{i18n>detailLineItemTableIDColumn}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="{i18n>documentoNumero}"/>
+						<!--<Button text="{i18n>documentoNumero}" icon="sap-icon://sort" press="sortDocumento"/>-->
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="{i18n>fecha}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<!--<Button text="{i18n>detailLineItemTableUnitNumberColumn}" icon="sap-icon://sort" press="sortValor"/>-->
+						<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+					</Column>
+					<Column width="8em" minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="{i18n>estado}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{Concepto}"/>
+							<!---text="{IdList}"/>-->
+							<Text text="{Opbel}"/>
+							<!--<Text text="{path: 'Budat', type : 'sap.ui.model.type.Date'}"/>-->
+							<!--<Text text="{path: 'Budat', formatter: '.formatter.dateValue'}"/>-->
+							<Text text="{path: 'Budat'}"/>
+							<ObjectNumber number="{ path: 'Betrh', formatter: '.formatter.currencyValue' }" unit="{Waers}"/>
+							<!--<Text text="{Status}"/>-->
+							<ObjectStatus class="sapUiSmallMarginBottom"
+								state="{= ${Status}==='G' ? 'Success': ${Status}==='R' ?'Error' : ${Status}==='Y' ?'Warning' : 'Error'}"
+								icon="{= ${Status}==='G' ? 'sap-icon://message-success': ${Status}==='R' ? 'sap-icon://message-error' : ${Status}==='Y' ? 'sap-icon://message-warning' : 'sap-icon://chevron-phase-2'}"
+								tooltip="{= ${Status}==='G' ? 'Partida Compensada': ${Status}==='R' ?'Deuda Vencida' : ${Status}==='Y' ?'Deuda por Vencer' : 'Saldo a Favor'}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+	</semantic:DetailPage>
+</mvc:View>

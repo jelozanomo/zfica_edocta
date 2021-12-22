@@ -1,0 +1,81 @@
+<mvc:View controllerName="ean.edu.co.edo.cta.controller.Master" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage id="page" title="{masterView>/title}" navButtonPress="onNavBack" showNavButton="true">
+		<semantic:subHeader>
+			<!--	<Bar id="headerBar">
+				<contentMiddle>
+					<SearchField
+						id="searchField"
+						showRefreshButton="{= !${device>/support/touch} }"
+						tooltip="{i18n>masterSearchTooltip}"
+						width="100%"
+						search="onSearch">
+					</SearchField>
+				</contentMiddle>
+			</Bar>-->
+		</semantic:subHeader>
+		<semantic:content>
+			<List class="totalList" id="list1">
+				<items>
+					<ObjectListItem class="totalList" id="oHTotal" title="Saldo a la fecha"></ObjectListItem>
+				</items>
+			</List>
+			<PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" refresh="onRefresh"/>
+			<List id="list"  items="{ path: '/ListSet', sorter: { path: 'TxtList', descending: false }, groupHeaderFactory: '.createGroupHeader' }"
+				busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished" selectionChange="onSelectionChange">
+				<infoToolbar>
+					<Toolbar active="true" id="filterBar" visible="{masterView>/isFilterBarVisible}" press="onOpenViewSettings">
+						<Title id="filterBarLabel" text="{masterView>/filterBarLabel}"/>
+					</Toolbar>
+				</infoToolbar>
+				<items>
+					<!--visible="{= ${status} === 'critical' }"
+					text="{= ${/amount} > 10000 ? ${i18n>/high} : ${i18n>/normal} }"-->
+					<ObjectListItem type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onSelectionChange" title="{TxtList}"
+						number="{= ${Waers}!==''? ${path: 'Betrh', formatter: '.formatter.currencyValue'} : '' }" numberUnit="{Waers}"></ObjectListItem>
+			<!--			<ObjectListItem type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onSelectionChange" title="{TxtList}"
+						number="{= ${Waers}!==''? ${path: 'Betrh', formatter: '.formatter.currencyFormateador'} : '' }" numberUnit="{Waers}"></ObjectListItem>
+-->
+				</items>
+			</List>
+		</semantic:content>
+		<!--<semantic:sort>
+			<semantic:SortSelect
+				id="sort"
+				selectedKey="{masterView>/sortBy}"
+				change="onSort">
+				<core:Item
+					id="masterSort1"
+					key="TxtList"
+					text="{i18n>masterSort1}"/>
+				<core:Item
+					id="masterSort2"
+					key="Betrh"
+					text="{i18n>masterSort2}"/>
+			</semantic:SortSelect>
+		</semantic:sort>
+		<semantic:filter>
+			<semantic:FilterAction
+				id="filter"
+				press="onOpenViewSettings" />
+		</semantic:filter>
+
+		<semantic:group>
+			<semantic:GroupSelect
+				id="group"
+				selectedKey="{masterView>/groupBy}"
+				change="onGroup">
+				<core:Item
+					id="masterGroupNone"
+					key="None"
+					text="{i18n>masterGroupNone}"/>
+				<core:Item
+					id="masterGroup1"
+					key="Betrh"
+					text="{i18n>masterGroup1}"/>
+			</semantic:GroupSelect>
+		</semantic:group>-->
+	</semantic:MasterPage>
+</mvc:View>

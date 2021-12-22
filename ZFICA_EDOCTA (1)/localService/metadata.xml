@@ -1,0 +1,67 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZFICA_EDO_CTA_SRV" xml:lang="es" sap:schema-version="1">
+            <EntityType Name="List" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IdList"/>
+                </Key>
+                <Property Name="IdList" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ID Estado de Cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TxtList" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Denominación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Betrh" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:unit="Waers" sap:label="Valor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="ListToItems" Relationship="ZFICA_EDO_CTA_SRV.ListToItem" FromRole="FromRole_ListToItem" ToRole="ToRole_ListToItem"/>
+            </EntityType>
+            <EntityType Name="Items" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IdList"/>
+                    <PropertyRef Name="Sequencenumber"/>
+                </Key>
+                <Property Name="IdList" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ID Estado de Cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sequencenumber" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Secuencia" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Concepto" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Concepto" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Opbel" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Nº documento" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Budat" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Fecha" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Betrh" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:unit="Waers" sap:label="Monto" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Estatus" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Total" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Gpart"/>
+                </Key>
+                <Property Name="Gpart" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="InterlComerc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Betrh" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:unit="Waers" sap:label="Importe" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <Association Name="ListToItem" sap:content-version="1">
+                <End Type="ZFICA_EDO_CTA_SRV.List" Multiplicity="1" Role="FromRole_ListToItem"/>
+                <End Type="ZFICA_EDO_CTA_SRV.Items" Multiplicity="*" Role="ToRole_ListToItem"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ListToItem">
+                        <PropertyRef Name="IdList"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ListToItem">
+                        <PropertyRef Name="IdList"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZFICA_EDO_CTA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ListSet" EntityType="ZFICA_EDO_CTA_SRV.List" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ItemsSet" EntityType="ZFICA_EDO_CTA_SRV.Items" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TotalSet" EntityType="ZFICA_EDO_CTA_SRV.Total" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="ListToItemSet" Association="ZFICA_EDO_CTA_SRV.ListToItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ListSet" Role="FromRole_ListToItem"/>
+                    <End EntitySet="ItemsSet" Role="ToRole_ListToItem"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://hana17.datacenter.local:8103/sap/opu/odata/sap/ZFICA_EDO_CTA_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://hana17.datacenter.local:8103/sap/opu/odata/sap/ZFICA_EDO_CTA_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
